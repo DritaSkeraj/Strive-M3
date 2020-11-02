@@ -91,7 +91,7 @@ const ex4 = (str) => {
     }
     return res;
 }
-console.log('4:::::::::', ex4('abba'));
+console.log('4:::::::::', ex4('abba') + ' ' + ex4('a'));
 
 /* 5) REVERSE INT
 Given an integer, return an integer that is the reverse
@@ -195,13 +195,14 @@ const ex8 = (mainArray, arraySize) => {
     let index = 0
     for(let i=0; i<insideArraysNum; i++){
         for(let j=0; j<arraySize; j++){
-            smallArray.push(mainArray[index]);
-            index++;
+            if(typeof mainArray[index] !== 'undefined'){
+                smallArray.push(mainArray[index]);
+                index++;
+            }
         }
         arraysHolder.push(smallArray);
         smallArray = [];
-    }
-    
+    } 
     return arraysHolder;
 }
 console.log('8:::::::::::', ex8([1, 2, 3, 4, 5], 2));
