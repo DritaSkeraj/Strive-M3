@@ -280,11 +280,43 @@ this would be a "DiegoRiccardo".
 this would be "34".
 */
 
-const ex19 = () => {
-    
+const ex19 = (num) => {
+    let res = '';
+    if(num%3 === 0){
+        res += 'Diego';
+    }
+    if(num%5 === 0){
+        res += 'Riccardo';
+    }
+    if(num%7 === 0){
+        res += 'Stefano';
+    }
+    if((num%3 !== 0) && (num%5 !== 0) && (num%7 !== 0)){
+        res = num;
+    }
+    return res;
 }
+console.log('Ex19:________');
+console.log(ex19(28));//Stefano
+console.log(ex19(30));//DiegoRiccardo
+console.log(ex19(34));//34
 
 /*
 20)
 Create a function that given a phrase returns its acronym, like British Broadcasting Corporation returns BBC
 */
+
+const ex20 = (phrase) => {
+    let acronym = '';
+    let phraseArr = phrase.split('');
+    for(let i=0; i<phraseArr.length; i++){
+        if(i==0){
+            acronym += phraseArr[i];
+        }
+        if(phraseArr[i] == ' '){
+            acronym += phraseArr[i+1];
+        }
+    }
+    return acronym;
+}
+console.log('Ex20:________', ex20('National Aeronautics Space Administration'));
