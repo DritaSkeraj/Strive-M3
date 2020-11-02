@@ -201,9 +201,10 @@ const ex8 = (mainArray, arraySize) => {
         arraysHolder.push(smallArray);
         smallArray = [];
     }
+    
     return arraysHolder;
 }
-console.log('8:::::::::::', ex8([1, 2, 3, 4], 2));
+console.log('8:::::::::::', ex8([1, 2, 3, 4, 5], 2));
 /* 9) PYRAMID
 Write a function that accepts a positive number N.
 The function should console log a pyramid shape
@@ -248,33 +249,25 @@ and returns a NxN spiral matrix.
 */
 
 const ex10 = (n) => {
-    let mainArray = [];
-    let smallArray = [];
-    let esArray = [];
-    for(let i=0; i<n; i++){
-        for(let j=0; j<n; j++){
-            smallArray.push(j);
+    // let mainArray = [];
+    // let smallArray = [];
+    // let esArray = [];
+    // for(let i=0; i<n; i++){
+    //     for(let j=0; j<n; j++){
+    //         smallArray.push(j);
+    //     }
+    //     mainArray.push(smallArray);
+    // }
+    // return mainArray;
+    let array = [];
+    let number = 0;
+    for(let i = 0; i < n; i++){
+        array[i] = [];
+        for(let j = 0; j < n; j++){
+            number = number + 1;
+            array[i].push(number);
         }
-        mainArray.push(smallArray);
     }
-    return mainArray;
+    return array;
 }
 console.log('10::::::::::::', ex10(3));
-
-
-// const ex10 = (mainArray, arraySize) => {
-
-//     let insideArraysNum = Math.ceil(mainArray.length/arraySize);
-//     let arraysHolder = [];
-//     let smallArray = [];
-//     let index = 0
-//     for(let i=0; i<insideArraysNum; i++){
-//         for(let j=0; j<arraySize; j++){
-//             smallArray.push(mainArray[index]);
-//             index++;
-//         }
-//         arraysHolder.push(smallArray);
-//         smallArray = [];
-//     }
-//     return arraysHolder;
-// }
