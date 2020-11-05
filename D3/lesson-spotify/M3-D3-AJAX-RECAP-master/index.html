@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <script src="https://kit.fontawesome.com/1205482781.js"></script>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    crossorigin="anonymous" />
+  <link rel="stylesheet" type="text/css" href="style.css" />
+  <title>Home</title>
+</head>
+
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <!--SIDEBAR VERTICAL-->
+      <div class="col-2">
+        <nav class="navbar navbar-expand-md navbar-white bg-navbar fixed-left justify-content-between" id="sidebar">
+          <div class="nav-container">
+            <a class="navbar-brand" href="index.html">
+              <img src="logo/Spotify_Logo.png" alt="Spotify_Logo" width="131" height="40" />
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+              aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+              <div class="navbar-nav">
+                <ul>
+                  <li>
+                    <a class="nav-item nav-link" href="index.html"><i class="fas fa-home fa-lg"></i>&nbsp; Home
+                    </a>
+                  </li>
+                  <li>
+                    <a class="nav-item nav-link" href="#"><i class="fas fa-book-open fa-lg"></i>&nbsp; Your
+                      Library</a>
+                  </li>
+                  <li>
+                    <div class="input-group mt-3">
+                      <input type="text" class="form-control mb-2" id="searchField" placeholder="Search"
+                        aria-label="Search" aria-describedby="basic-addon2" />
+                      <div class="input-group-append" style="margin-bottom: 4%">
+                        <button class="btn btn-outline-secondary btn-sm" type="button" id="button-search"
+                          onclick="search()">
+                          GO
+                        </button>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="nav-btn">
+            <button class="btn signup-btn" type="button">Sign Up</button>
+            <button class="btn login-btn" type="button">Login</button>
+            <a href="#">Cookie Policy</a> |
+            <a href="#"> Privacy</a>
+          </div>
+        </nav>
+      </div>
+      <!--END SIDEBAR VERTICAL-->
+
+      <!--MAIN-->
+      <div class="col-12 mb-5 col-md-9 offset-md-3 mainPage">
+        <div class="row">
+          <div class="col-9 col-lg-11 mainLinks d-none d-md-flex">
+            <a href="#">TRENDING</a>
+            <a href="#">PODCAST</a>
+            <a href="#">MOODS AND GENRES</a>
+            <a href="#">NEW RELEASES</a>
+            <a href="#">DISCOVER</a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-10">
+            <div id="searchResults" style="display: none">
+              <h2>Search Results</h2>
+              <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 imgLinks py-3"></div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <button class="btn btn-primary mt-5 mx-auto" onclick="createCards()" id="fetch-button">
+            List albums
+          </button>
+        </div>
+        <div class="row">
+          <div class="col-10">
+            <div id="eminem" class="d-none">
+              <h2>Eminem</h2>
+              <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 imgLinks py-3" id="eminemSection">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-10">
+            <div id="metallica" class="d-none">
+              <h2>Metallica</h2>
+              <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 imgLinks py-3" id="metallicaSection">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-10">
+            <div id="behemoth" class="d-none">
+              <h2>Behemoth</h2>
+              <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 imgLinks py-3" id="behemothSection">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-10">
+            <div id="found" class="d-none">
+              <h2>Search results</h2>
+              <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 imgLinks py-3" id="searchSection">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <button class="btn btn-primary mt-5 d-none mb-5 mx-auto" onclick="countUniqueAlbums()"
+            id="count-unique-button">
+            Count Unique
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--END MAIN-->
+
+  <!--NAVBAR FLEX-BOTTOM-->
+  <div class="container-fluid fixed-bottom bg-container pt-1">
+    <div class="row">
+      <div class="col-lg-10 offset-lg-2">
+        <div class="row">
+          <div class="col-6 col-md-4 col-lg-2 offset-3 offset-md-4 offset-lg-5 playerControls mt-1">
+            <div class="row">
+              <a href="#">
+                <img src="playerbuttons/Shuffle.png" alt="shuffle" />
+              </a>
+              <a href="#">
+                <img src="playerbuttons/Previous.png" alt="shuffle" />
+              </a>
+              <a href="#">
+                <img src="playerbuttons/Play.png" alt="shuffle" />
+              </a>
+              <a href="#">
+                <img src="playerbuttons/Next.png" alt="shuffle" />
+              </a>
+              <a href="#">
+                <img src="playerbuttons/Repeat.png" alt="shuffle" />
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="row justify-content-center playBar py-3">
+          <div class="col-8 col-md-6">
+            <div class="progress">
+              <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--END NAVBAR BOTTOM-->
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+  </script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
+  </script>
+
+  <script>
+    const headers = {
+      "X-RapidAPI-Host": "deezerdevs-deezer.p.rapidapi.com",
+      "X-RapidAPI-Key": "9d408f0366mshab3b0fd8e5ecdf7p1b09f2jsne682a1797fa0",
+    }
+
+    function returnCard(songInfo) {
+      // songInfo represents the info for the current song
+      // creating the wrapper div
+      return `
+          <div class="col text-center" id=${songInfo.id}>
+            <a href="/album_page.html?id=${songInfo.album.id}">
+              <img class="img-fluid" src=${
+                songInfo.album.cover_medium
+              } alt="1" />
+            </a>
+            <p>
+              <a href="/album_page.html?id=${songInfo.album.id}">
+                Album: "${
+                  songInfo.album.title.length < 16
+                    ? `${songInfo.album.title}`
+                    : `${songInfo.album.title.substring(0, 16)}...`
+                }"<br>
+              </a>
+              <a href="/artist_page.html?id=${songInfo.artist.id}">
+                Artist: ${songInfo.artist.name}
+              </a>
+            </p>
+          </div>`;
+    }
+
+    let eminemTracks = [];
+    let metallicaTracks = [];
+    let behemothTracks = [];
+
+    let found = []
+
+    const createCards = function () {
+      const btn = document.getElementById("fetch-button");
+
+      document.getElementById("eminem").classList.remove('d-none')
+      document.getElementById("metallica").classList.remove("d-none");
+      document.getElementById("behemoth").classList.remove("d-none");
+      document
+        .getElementById("count-unique-button")
+        .classList.remove("d-none");
+
+      btn.remove();
+
+      const eminemDiv = document.getElementById("eminemSection");
+
+      eminemTracks.forEach(eminemTrack => {
+        eminemDiv.innerHTML += returnCard(eminemTrack);
+      });
+
+      const metallicaDiv = document.getElementById("metallicaSection");
+
+      metallicaTracks.forEach(metallicaTrack => {
+        metallicaDiv.innerHTML += returnCard(metallicaTrack);
+      })
+
+      const behemothDiv = document.getElementById("behemothSection");
+
+      behemothTracks.forEach(behemothTrack => {
+        behemothDiv.innerHTML += returnCard(behemothTrack)
+      })
+      // ALTERNATIVE VERSION
+      // for (let i = 0; i < eminemTracks.length; i++) {
+      //   eminemDiv.innerHTML += returnCard(eminemTracks[i]);
+      // }
+
+      // for (let i = 0; i < metallicaTracks.length; i++) {
+      //   metallicaDiv.innerHTML += returnCard(metallicaTracks[i]);
+      // }
+      // for (let i = 0; i < behemothTracks.length; i++) {
+      //   behemothDiv.innerHTML += returnCard(behemothTracks[i]);
+      // }
+    };
+
+    const search = function () {
+      const searchQuery = document.getElementById("searchField").value
+      fetch(`https://deezerdevs-deezer.p.rapidapi.com/search?q=${searchQuery}`, {
+          method: "GET",
+          headers
+        })
+        .then(response => response.json())
+        .then(data => {
+          const searchSection = document.getElementById("searchSection");
+          searchSection.innerHTML = ''
+          found = []
+
+          found = data.data
+          if (found.length > 0) {
+
+            document.getElementById("found").classList.remove('d-none')
+
+            found.forEach(track => {
+              searchSection.innerHTML += returnCard(track);
+            });
+          }
+        })
+    }
+
+
+    const countUniqueAlbums = function () {
+
+      // const allTracks = eminemTracks.concat(metallicaTracks, behemothTracks)
+      // const uniqueAlbums = []
+      // console.log(allTracks)
+
+      // for (let i = 0; i < allAlbums.length; i++) {
+      //   if (
+      //     uniqueAlbums.findIndex(
+      //       (a) => a.album.id === allAlbums[i].album.id
+      //     ) === -1
+      //   ) {
+      //     uniqueAlbums.push(allAlbums[i]);
+      //   }
+      // }
+
+      const uniqueAlbumCount = eminemTracks.concat(metallicaTracks, behemothTracks).map(track => track.album
+          .title)
+        .filter((
+            albumId, i, array) => array.indexOf(
+            albumId) ===
+          i)
+      // .reduce((sum, elem) => sum + 1, 0) // Just an example...better use .length :)
+      console.log(uniqueAlbumCount)
+
+      alert(`${uniqueAlbumCount.length} unique albums`);
+    }
+
+
+    window.onload = function () {
+      // fetch("https://deezerdevs-deezer.p.rapidapi.com/search?q=eminem", {
+      //     method: "GET",
+      //     headers,
+      //   })
+      //   .then(response => {
+      //     if (response.ok) {
+      //       return response.json();
+      //     }
+      //   })
+      //   .then( artists => 
+      //     eminemTracks = artists.data.slice(0, 8);
+      //   )
+      //   .catch( error =>
+      //     console.log(error));
+
+      // fetch(
+      //     "https://deezerdevs-deezer.p.rapidapi.com/search?q=metallica", {
+      //       method: "GET",
+      //       headers,
+      //     }
+      //   )
+      //   .then(response => {
+      //     if (response.ok) {
+      //       return response.json();
+      //     }
+      //   })
+      //   .then( artists => 
+      //     metallicaTracks = artists.data.slice(0, 8);
+      //   )
+      //   .catch( error =>
+      //     console.log(error));
+
+      // fetch(
+      //     "https://deezerdevs-deezer.p.rapidapi.com/search?q=behemoth", {
+      //       method: "GET",
+      //       headers,
+      //     }
+      //   )
+      //   .then(response => {
+      //     if (response.ok) {
+      //       return response.json();
+      //     }
+      //   })
+      //   .then( artists =>
+      //     behemothTracks = artists.data.slice(0, 8))
+      //   .catch(error =>  console.log(error));
+
+      // ALTERNATIVE WITH PROMISE ALL
+      const fetchEminem = fetch("https://deezerdevs-deezer.p.rapidapi.com/search?q=eminem", {
+          method: "GET",
+          headers,
+        })
+        .then(response => {
+          if (response.ok) {
+            return response.json();
+          }
+        })
+
+      const fetchMetallica = fetch(
+          "https://deezerdevs-deezer.p.rapidapi.com/search?q=metallica", {
+            method: "GET",
+            headers,
+          }
+        )
+        .then(response => {
+          if (response.ok) {
+            return response.json();
+          }
+        })
+
+      const fetchBehemoth = fetch(
+          "https://deezerdevs-deezer.p.rapidapi.com/search?q=behemoth", {
+            method: "GET",
+            headers,
+          }
+        )
+        .then(response => {
+          if (response.ok) {
+            return response.json();
+          }
+        })
+
+
+      Promise.all([fetchEminem, fetchMetallica, fetchBehemoth]).then(response => {
+        console.log(response)
+        eminemTracks = response[0].data
+        metallicaTracks = response[1].data
+        behemothTracks = response[2].data
+      }).catch(err => console.log(err))
+    };
+  </script>
+</body>
+
+</html>
