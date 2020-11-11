@@ -45,13 +45,21 @@
     <style>
         .user{
             width: 230px;
-            height: 200px;
-            border: 1px solid rgb(187, 187, 187);
-            background-color: rgb(187, 187, 187);
-            color: #1b1b1b;
+            height: 110px;
+            background: #2C3E50;  /* fallback for old browsers */
+            color: #F1ECCE;
             display: inline-block;
             margin: 5px;
             text-align: center;
+            align-self: center;
+        }
+        .users{
+          display: flex;
+          flex-direction: row;
+          justify-content: space-evenly;
+        }
+        body{
+          background-color: #F1ECCE;
         }
     </style>
   </head>
@@ -60,10 +68,11 @@
 
     <div class="container">
 
-            <h2>Users</h2>
+            <h2 style='text-align: center;'>M3-D7</h2>
             <hr>
             
-        <div class="row">
+        <div class="row d-flex justify-content-center">
+            <span class='mr-2' style='color: #2C3E50;'><h5>Search for users: </h5></span>
             <input type="text" id="inputField"> 
             <select id="select">
                 <option value="name">Name</option>
@@ -72,11 +81,20 @@
     
             </select>
             <input type="button" value="Search" onclick="SearchFunction()" >
+            <input type="button" value="Asc/Des" onclick="AscDes()">
     
         </div>
-        
-        <div class='users row'>
-    
+
+        <hr>
+
+        <div class='users row asc'></div>
+
+        <div class='names'></div>
+
+        <div class='addresses'></div>
+
+        <div class="col-12 d-flex justify-content-center">
+          <ul id="myUl" class="asc"></ul>
         </div>
 
     </div>
@@ -93,6 +111,7 @@
       integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
       crossorigin="anonymous"
     ></script>
-    <script src='script.js'></script>
+    <!-- <script src='script.js'></script> -->
+    <script src='index.js'></script>
   </body>
 </html>
