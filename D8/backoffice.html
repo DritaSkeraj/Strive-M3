@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+        <a class="navbar-brand" href="./index.html">Agenda</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="./index.html"
+                >Home <span class="sr-only">(current)</span></a
+              >
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="./backoffice.html">Backoffice</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+    <div class="container">
+      <h1 class="text-center">Amazon</h1>
+      <h1 class="text-center">(backoffice)</h1>
+      <h2 class="text-center mt-5">Add a new product:</h2>
+      <div class='row'>
+          <div class='col-md-6 offset-md-3'>
+              <form onsubmit="handleSubmit(event)">
+                <div class='form-group'>
+                    <label for='name'>Product name</label>
+                    <input 
+                        type='text'
+                        class='form-control'
+                        id='name'
+                        placeholder='Write the product name here'
+                    />
+                </div>
+                <div class='form-group'>
+                    <label for='description'>Product description</label>
+                    <input 
+                        type='text'
+                        class='form-control'
+                        id='description'
+                        placeholder='Write the product description here'
+                    />
+                </div>
+                <div class='form-group'>
+                    <label for='brand'>Product brand</label>
+                    <input 
+                        type='text'
+                        class='form-control'
+                        id='brand'
+                        placeholder='Write the product brand here'
+                    />
+                </div>
+                <div class='form-group'>
+                    <label for='image'>Product image</label>
+                    <input 
+                        type='text'
+                        class='form-control'
+                        id='image'
+                        placeholder='place the image url here'
+                    />
+                </div>
+                <div class='form-group'>
+                    <label for='price'>Product price</label>
+                    <input 
+                        type='number'
+                        class='form-control'
+                        id='price'
+                        placeholder='Product price'
+                    />
+                </div>
+                <div class='form-group'>
+                    <button 
+                        class='btn btn-primary'
+                        type='submit'
+                        value='Submit event'
+                    >Submit event</button>
+                </div>
+              </form>
+          </div>
+      </div>
+    </div>
+
+    <script>
+        const url = 'https://striveschool-api.herokuapp.com/api/product/';
+
+        const handleSubmit = (e) =>{
+            e.preventDefault();
+            submitProduct();
+            console.log('handle submit')
+        };
+
+        const submitProduct = async () =>{
+            let myProduct = {
+                name: document.querySelector('#name').value,
+                description: document.querySelector('#description').value,
+                brand: document.querySelector('#brand').value,
+                image: document.querySelector('#image').value,
+                price: document.querySelector('#price').value                
+            };
+
+            try{
+                let response = await fetch(url, 
+                
+                   { 
+                    // headers: new Headers ({
+                    //          "Content-Type": "application/json",
+                    //          "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmFiZmQwYTRiY2RlMTAwMTc2MTZjYjEiLCJpYXQiOjE2MDUxMDY5NTQsImV4cCI6MTYwNjMxNjU1NH0.DLlmc1-t7yMa6WElvxcAFuvMYPuYEg5IFfKNbbcXRik"
+                    //          }),
+                    headers: {
+                        "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmFiZmQwYTRiY2RlMTAwMTc2MTZjYjEiLCJpYXQiOjE2MDUxMDY5NTQsImV4cCI6MTYwNjMxNjU1NH0.DLlmc1-t7yMa6WElvxcAFuvMYPuYEg5IFfKNbbcXRik",
+                    },
+                    method: 'POST',
+                    body: JSON.stringify(myProduct)}
+                    
+                );
+                if (response.ok){
+                    location.assign('index.html');
+                    alert('Event created successfully');
+                } else {
+                    alert('Something went wrong!');
+                }
+            } catch (err) {
+                console.log(err);
+            }
+        }
+    </script>
+  </body>
+</html>
