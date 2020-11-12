@@ -19,7 +19,7 @@
 
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
-      <a class="navbar-brand" href="./index.html">The New Amazon</a>
+      <a class="navbar-brand" href="./index.html">Agenda</a>
       <button
         class="navbar-toggler"
         type="button"
@@ -48,66 +48,62 @@
     <div class="container">
       <h1 class="text-center">STRIVE CRUD AGENDA</h1>
       <h1 class="text-center">(backoffice)</h1>
-      <h2 class="text-center mt-5">Create a new product</h2>
+      <h2 class="text-center mt-5">Create a new event</h2>
       <div class="row">
         <div class="col-md-6 offset-md-3">
           <form onsubmit="handleSubmit(event)">
             <div class="form-group">
-              <label for="name">Product name</label>
+              <label for="name">Event name</label>
               <input
                 type="text"
                 class="form-control"
                 id="name"
-                placeholder="Write here the product name"
+                placeholder="Write here the event name"
+                required
               />
             </div>
 
             <div class="form-group">
-              <label for="description">Description</label>
+              <label for="description">Event description</label>
               <textarea
                 class="form-control"
                 id="description"
                 rows="3"
-                placeholder="Write here the product description"
+                placeholder="Write here the event description"
+                required
               ></textarea>
             </div>
+
             <div class="form-group">
-              <label for="brand">Product Brand</label>
-              <input
-                type="text"
-                class="form-control"
-                id="brand"
-                placeholder="What company makes this product?"
-              />
-            </div>
-            <div class="form-group">
-              <label for="image">Product Image</label>
-              <input
-                type="url"
-                class="form-control"
-                id="imageUrl"
-                placeholder="Link to a good photo of the product"
-              />
-            </div>
-            <div class="form-group">
-              <label for="price">Product price</label>
+              <label for="price">Event ticket price</label>
               <input
                 type="number"
                 class="form-control"
                 id="price"
-                min="0"
-                step="0.01"
-                placeholder="How much does this product cost?"
+                placeholder="Write here the event price"
+                required
               />
+            </div>
+
+            <div class="form-group">
+              <label for="time">Event Date &amp; Time</label>
+              <input type="datetime-local" id="time" required />
             </div>
 
             <div class="form-group">
               <button
                 class="btn btn-primary"
                 type="submit"
-                value="Submit Product"
+                value="Submit event"
               >
-                Submit New Product
+                <span
+                  class="spinner-border spinner-border-sm d-none"
+                  role="status"
+                  aria-hidden="true"
+                  id="loadingSpinner"
+                ></span>
+                <!-- spinner is hidden by default because of d-none -->
+                Submit event
               </button>
             </div>
           </form>
@@ -116,40 +112,76 @@
     </div>
 
     <script>
-      const url = "https://striveschool-api.herokuapp.com/api/product/";
+      // READ => GET https://striveschool-api.herokuapp.com/api/agenda/ ==> get all the items from the APIs
+      // READ SINGLE => GET https://striveschool-api.herokuapp.com/api/agenda/{id} ==> get one specific item
+      // CREATE => POST https://striveschool-api.herokuapp.com/api/agenda/ ==> create a new item
+      // UPDATE => PUT https://striveschool-api.herokuapp.com/api/agenda/{id} ==> edit a specific item
+      // DELETE => DELETE https://striveschool-api.herokuapp.com/api/agenda/{id} => delete a specific item
+
+      const url = "https://striveschool-api.herokuapp.com/api/agenda/";
+
+      window.onload = async () => {
+        let urlParams = new URLSearchParams(window.location.search);
+        id = urlParams.get("id");
+        if (id) {
+          let response = await fetch(url + id); // contacting the endpoint for a single event
+          let event = await response.json(); // transforming the response body in an usable object, asyncronous operation!
+          document.getElementById("name").value = event.name;
+          document.getElementById("description").value = event.description;
+          document.getElementById("time").value = event.time.split(".")[0];
+          document.getElementById("price").value = event.price;
+        }
+      };
+
       const handleSubmit = (e) => {
         e.preventDefault(); // preventing the default browser event handling
         submitEvent();
       };
 
       const submitEvent = async () => {
+        let spinner = document.querySelector("#loadingSpinner");
+        spinner.classList.toggle("d-none"); // showing the spinner
+
         let myEvent = {
           // gathering the data from the form, field by field
           name: document.querySelector("#name").value,
           description: document.querySelector("#description").value,
-          brand: document.querySelector("#brand").value,
-          imageUrl: document.querySelector("#imageUrl").value,
+          time: document.querySelector("#time").value,
           price: document.querySelector("#price").value,
         };
 
         try {
-          let response = await fetch(url, {
-            // our POST request is made with the fetch method as well!
-            method: "POST", // declaring the CRUD method
-            body: JSON.stringify(myEvent), // we need to stringify the JS object in order to send it
-            headers: new Headers({
-              // we need also to declare the content type
-              "Content-Type": "application/json",
-              Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmFiYzY5MjRiY2RlMTAwMTc2MTZhOTIiLCJpYXQiOjE2MDUwOTMwMTAsImV4cCI6MTYwNjMwMjYxMH0.-YLUFLWos4UayrRCHg5LrNm3_tPr8qNRzCRLfPI_pc4",
-            }),
-          });
+          let response;
+
+          if (id) {
+            response = await fetch(url + id, {
+              // our PUT request is made with the fetch method as well!
+              method: "PUT", // declaring the CRUD method
+              body: JSON.stringify(myEvent), // we need to stringify the JS object in order to send it
+              headers: new Headers({
+                // we need also to declare the content type
+                "Content-Type": "application/json",
+              }),
+            });
+          } else {
+            response = await fetch(url, {
+              // our POST request is made with the fetch method as well!
+              method: "POST", // declaring the CRUD method
+              body: JSON.stringify(myEvent), // we need to stringify the JS object in order to send it
+              headers: new Headers({
+                // we need also to declare the content type
+                "Content-Type": "application/json",
+              }),
+            });
+          }
 
           if (response.ok) {
             // checking the ok property which stores the successful result of the operation
-            alert("Product created successfully");
+            spinner.classList.toggle("d-none"); // hiding the spinner
+            alert(`Event ${id ? "updated" : "created"} successfully`);
             location.assign("index.html");
           } else {
+            spinner.classList.toggle("d-none"); // hiding the spinner
             alert("Something went wrong!");
           }
         } catch (error) {
