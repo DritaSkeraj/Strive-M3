@@ -167,7 +167,7 @@
           if(id){          
             response = await fetch(url + id, {
               // our POST request is made with the fetch method as well!
-              method: "POST", // declaring the CRUD method
+              method: "PUT", // declaring the CRUD method
               body: JSON.stringify(myEvent), // we need to stringify the JS object in order to send it
               headers: new Headers({
                 // we need also to declare the content type
@@ -179,7 +179,7 @@
           } else {
             response = await fetch(url, {
               // our POST request is made with the fetch method as well!
-              method: "PUT", // declaring the CRUD method
+              method: "POST", // declaring the CRUD method
               body: JSON.stringify(myEvent), // we need to stringify the JS object in order to send it
               headers: new Headers({
                 // we need also to declare the content type
